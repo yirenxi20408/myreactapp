@@ -3,33 +3,33 @@ const TableHeader = () => {
     return (
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Job</th>
-                <th>Operation</th>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>班级</th>
             </tr>
         </thead>
     )
 }
 const TableBody = (props) => {
-    const rows = props.characterData.map((row, index) => {
+    const rows = props.studentData.map((row, index) => {
         return (
             <tr key={index}>
+                <td>{row.id}</td>
                 <td>{row.name}</td>
-                <td>{row.job}</td>
-                <td>
-                    <button onClick={() => props.removeCharacter(index)}>Delete</button>
-                </td>
+                <td>{row.gender}</td>
+                <td>{row.className}</td>
             </tr>)
     })
     return <tbody>{rows}</tbody>
 }
 const Table = (props) => {
-    const { characterData, removeCharacter } = props
+    const { studentData } = props
 
     return (
         <table>
             <TableHeader />
-            <TableBody characterData={characterData} removeCharacter={removeCharacter} />
+            <TableBody studentData={studentData} />
         </table>
     )
 }
