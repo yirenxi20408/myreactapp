@@ -1,47 +1,40 @@
 import React, { Component } from 'react'
 
 class Form extends Component {
-    initialState = {
-        name: '',
-        job: '',
+    state = {
+        searchQuery: '',
     }
-    //Form组件的state，注意和App的state区别，每个组件都有自己的state
-    state = this.initialState
 
     handleChange = (event) => {
-        const { name, value } = event.target
-        //更新组件中的值，注意下面的语法[name],是动态根据event中的组件名称修改对应的属性
         this.setState({
-            [name]: value,
+            searchQuery: event.target.value,
         })
     }
     
-    submitForm = () => {
-        this.props.handleSubmit(this.state)
-        this.setState(this.initialState)
+    handleSearch = () => {
+        this.props.onSearch(this.state.searchQuery)
     }
 
     render() {
-        const { name, job } = this.state;
+        const { searchQuery } = this.state;
 
         return (
-            <form>
-                <label htmlFor="name">Name</label>
-                <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    value={name}
-                    onChange={this.handleChange} />
-                <label htmlFor="job">Job</label>
-                <input
-                    type="text"
-                    name="job"
-                    id="job"
-                    value={job}
-                    onChange={this.handleChange} />
-                <input type="button" value="Submit" onClick={this.submitForm} />
-            </form>
+            <div style={{ marginBottom: '1rem' }}>
+                <label htmlFor="search">搜索学生姓名</label>
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <input
+                        type="text"
+                        name="search"
+                        id="search"
+                        value={searchQuery}
+                        onChange={this.handleChange}
+                        placeholder="输入学生姓名进行搜索"
+                        style={{ flex: 1 }}
+                    />
+                    <input type="button" value="搜索" onClick={this.handleSearch} />
+                    <input type="button" value="生成数据" onClick={this.props.onGenerate} />
+                </div>
+            </div>
         );
     }
 }
